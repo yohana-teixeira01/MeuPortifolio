@@ -1,3 +1,5 @@
+
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -15,6 +17,13 @@ class AppTextStyles{
       color: Color.fromRGBO(243, 251, 252, 1),
     );
   }
+   static TextStyle headerMenuTextStyle({required Color color}) {
+    return GoogleFonts.nunito(
+      fontSize:  19,
+      fontWeight: FontWeight.bold,
+     color: color,
+    );
+  }
 
   static TextStyle monteserratStyle(double fontSize) {
     return GoogleFonts.montserrat(
@@ -25,20 +34,20 @@ class AppTextStyles{
     );
   }
 
-  static TextStyle monteserratblueStyle({required Color color}) {
+  static TextStyle monteserratblueStyle({required Color color, required double fontSize}) {
     return GoogleFonts.montserrat(
       color: color,
       fontWeight: FontWeight.bold,
-      fontSize: 20,
+      fontSize: fontSize,
       letterSpacing: 2,
     );
   }
 
-  static TextStyle normalStyle() {
+  static TextStyle normalStyle({required double fontSize}) {
     return GoogleFonts.signikaNegative(
       color: Color.fromRGBO(243, 251, 252, 1),
       fontWeight: FontWeight.w500,
-      fontSize: 17,
+      fontSize: fontSize,
       letterSpacing: 1,
     );
   }
