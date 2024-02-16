@@ -26,87 +26,86 @@ class _AboutState extends State<About> with TickerProviderStateMixin {
     final Size size = MediaQuery.of(context).size;
     double screenHeight = MediaQuery.of(context).size.height;
 
-    return SingleChildScrollView(
-      child: HelperClass(
-        mobile: buildMobileLayout(size, screenHeight),
-        tablet: buildTabletLayout(size, screenHeight),
-        desktop: buildDesktopLayout(size, screenHeight),
-        paddingWidth: size.width * 0.1,
-        bgColor: AppColors.sColor,
-      ),
+    return HelperClass(
+      mobile: buildMobileLayout(size, screenHeight),
+      tablet: buildTabletLayout(size, screenHeight),
+      desktop: buildDesktopLayout(size, screenHeight),
+      paddingWidth: size.width * 0.1,
+      bgColor: AppColors.sColor,
     );
   }
 
   Widget buildMobileLayout(Size size, double screenHeight) {
-  return SingleChildScrollView(
-      child: Column(
-        children: [
-          Image.asset(
-            AppAssets.profile2,
-            height: getImageSize(context, 0.6),
-            width: getImageSize(context, 0.6),
-          ),
-          buildMobileAboutMeContents(size, screenHeight),
-          Constants.sizedBox(width: 15.0),
-        ],
-      ),
-    );
+  return ListView(
+    children: [
+    Column(
+      children: [
+        Image.asset(
+          AppAssets.profile2,
+          height: getImageSize(context, 0.6),
+          width: getImageSize(context, 0.6),
+        ),
+        buildMobileAboutMeContents(size, screenHeight),
+        Constants.sizedBox(width: 15.0),
+      ],
+    ),
+   ], 
+  );
   
 }
 
 
   Widget buildMobileAboutMeContents(Size size, double screenHeight) {
-    return SingleChildScrollView(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          Constants.sizedBox(height: 10.0),
-          Text.rich(
-            _buildTextSpan(),
-            style: AppTextStyles.monteserratStyle(getTextSize(context, 30)),
-            textAlign: TextAlign.start,
-            textDirection: TextDirection.rtl,
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        Constants.sizedBox(height: 10.0),
+        Text.rich(
+          _buildTextSpan(),
+          style: AppTextStyles.monteserratStyle(getTextSize(context, 30)),
+          textAlign: TextAlign.start,
+          textDirection: TextDirection.rtl,
+        ),
+        Constants.sizedBox(height: 5.0),
+        Text(
+          'Graduada em Tecnologia em Sistemas para Internet pela Universidade Católica de Pernambuco. Estou em busca de uma oportunidade de emprego na área de sistemas de internet. Domínio em linguagens de programação. Na vida acadêmica, tive a oportunidade de estagiar, realizar e participar de projetos pertinentes a vivência de desenvolvedora. Atuei como mentora de Lógica de programação visando trabalhar as dificuldades e necessidades de cada pessoa.',
+          style: AppTextStyles.headerTextStyle(getTextSize(context, 14)),
+          maxLines: 16,
+          overflow: TextOverflow.ellipsis,
+        ),
+        Padding(
+          padding: EdgeInsets.symmetric(vertical: 5, horizontal: size.width * 0.0002),
+          child: TabBar(
+            indicatorColor: Color(0xFF65C8D6),
+            controller: _tabController,
+            labelPadding: EdgeInsets.symmetric(horizontal: 8.0),
+            tabs: [
+              Tab(child: Text('Habilidades', style: AppTextStyles.headerTextStyle(getTextSize(context, 13)),),),
+              Tab(child: Text('Experiência', style: AppTextStyles.headerTextStyle(getTextSize(context, 13)),),),
+              Tab(child: Text('Formação', style: AppTextStyles.headerTextStyle(getTextSize(context, 13)),),),
+            ],
           ),
-          Constants.sizedBox(height: 5.0),
-          Text(
-            'Graduada em Tecnologia em Sistemas para Internet pela Universidade Católica de Pernambuco. Estou em busca de uma oportunidade de emprego na área de sistemas de internet. Domínio em linguagens de programação. Na vida acadêmica, tive a oportunidade de estagiar, realizar e participar de projetos pertinentes a vivência de desenvolvedora. Atuei como mentora de Lógica de programação visando trabalhar as dificuldades e necessidades de cada pessoa.',
-            style: AppTextStyles.headerTextStyle(getTextSize(context, 14)),
-            maxLines: 16,
-            overflow: TextOverflow.ellipsis,
+        ),
+        Container(
+          width: double.maxFinite,
+          height: screenHeight * 0.3,
+          child: TabBarView(
+            controller: _tabController,
+            children: [
+              Text('Frameworks \nFlutter, React Native, Spring boot, Nodejs, Bootstrap. \n\nHard Skills \n Java, Javascript, Kotlin, Python e Dart. \n\nSoft Skills  \nCriativa, Proativa, Persuasiva, Git/Github, Responsável, Determinada, Comunicativa, HTML, CSS, \nMétodos Ágeis, Capacidade de liderança, Flexibilidade para trabalho em equipe.', style: AppTextStyles.headerTextStyle(getTextSize(context, 13))),
+              Text(' Profissional  \n Empresa: Prefeitura do Recife \n Cargo: Estagiária de Desenvolvimento em Python \n Período: 10/2022 a 01/2023 \n Atividades desenvolvidas: Criação de coreografias para os robôs através de IDE com base em Python. \n\n Acadêmica \n Mentora de Lógica de Programação \n Projetos com Startups em parceria com o Porto Digital. ', style: AppTextStyles.headerTextStyle(getTextSize(context, 13))),
+              Text(' Sistemas para Internet - UNICAP  | Concluído em 2022. \n\n Power BI - Avanade | Concluído em 2022.  ', style: AppTextStyles.headerTextStyle(getTextSize(context, 13))),
+            ],
           ),
-          Padding(
-            padding: EdgeInsets.symmetric(vertical: 5, horizontal: size.width * 0.0002),
-            child: TabBar(
-              indicatorColor: Color(0xFF65C8D6),
-              controller: _tabController,
-              labelPadding: EdgeInsets.symmetric(horizontal: 8.0),
-              tabs: [
-                Tab(child: Text('Habilidades', style: AppTextStyles.headerTextStyle(getTextSize(context, 13)),),),
-                Tab(child: Text('Experiência', style: AppTextStyles.headerTextStyle(getTextSize(context, 13)),),),
-                Tab(child: Text('Formação', style: AppTextStyles.headerTextStyle(getTextSize(context, 13)),),),
-              ],
-            ),
-          ),
-          Container(
-            width: double.maxFinite,
-            height: screenHeight * 0.3,
-            child: TabBarView(
-              controller: _tabController,
-              children: [
-                Text('Frameworks \nFlutter, React Native, Spring boot,Nodejs, Bootstrap. \n\nHard Skills \n Java, Javascript, Kotlin, Python e Dart. \n\nSoft Skills  \nCriativa, Proativa, Persuasiva, Git/Github, Responsável, Determinada,Comunicativa, HTML, CSS, \nMétodos Ágeis,Capacidade de liderança, Flexibilidade para trabalho em equipe.', style: AppTextStyles.headerTextStyle(getTextSize(context, 13))),
-                Text(' Profissional  \n Empresa: Prefeitura do Recife \n Cargo: Estagiária de Desenvolvimento em Python \n Período: 10/2022 a 01/2023 \n Atividades desenvolvidas: Criação de coreografias para os robôs através de IDE com base em Python. \n\n Acadêmica \n Mentora de Lógica de Programação \n Projetos com Startups em parceria com o Porto Digital ', style: AppTextStyles.headerTextStyle(getTextSize(context, 13))),
-                Text(' Sistemas para Internet - UNICAP  | Concluído em 2022. \n\n Power BI - Avanade | Concluído em 2022.  ', style: AppTextStyles.headerTextStyle(getTextSize(context, 13))),
-              ],
-            ),
-          ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 
-  Widget buildTabletLayout(Size size, double screenHeight) {
-    return Row(
+ Widget buildTabletLayout(Size size, double screenHeight) {
+  return Center(
+    child: Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Container(
@@ -164,19 +163,20 @@ class _AboutState extends State<About> with TickerProviderStateMixin {
                 child: TabBarView(
                   controller: _tabController,
                   children: [
-                    Text(' Frameworks \n Flutter, React Native, Spring boot,Nodejs, Bootstrap. \n\n Hard Skills \n Java, Javascript, Kotlin, Python e Dart. \n\n Soft Skills  \n Criativa, Proativa, Persuasiva, Git, Github, Responsável,\n Determinada,Comunicativa, HTML, CSS, Métodos Ágeis, \n Capacidade de liderança, Flexibilidade para trabalho em equipe.', style: AppTextStyles.headerTextStyle(getTextSize(context, 10))),
-                    Text(' Profissional  \n Empresa: Prefeitura do Recife \n Cargo: Estagiária de Desenvolvimento em Python \n Período: 10/2022 a 01/2023 \n Atividades desenvolvidas: Criação de coreografias para os robôs através de IDE com base em Python. \n\n Acadêmica \n Mentora de Lógica de Programação \n Projetos com Startups em parceria com o Porto Digital ', style: AppTextStyles.headerTextStyle(getTextSize(context, 10))),
+                    Text(' Frameworks \n Flutter, React Native, Spring boot, Nodejs, Bootstrap. \n\n Hard Skills \n Java, Javascript, Kotlin, Python e Dart. \n\n Soft Skills  \n Criativa, Proativa, Persuasiva, Git, Github, Responsável,\n Determinada, Comunicativa, HTML, CSS, Métodos Ágeis, \n  Capacidade de liderança, Flexibilidade para trabalho em equipe.', style: AppTextStyles.headerTextStyle(getTextSize(context, 10))),
+                    Text(' Profissional  \n Empresa: Prefeitura do Recife \n Cargo: Estagiária de Desenvolvimento em Python \n Período: 10/2022 a 01/2023 \n Atividades desenvolvidas: Criação de coreografias para os robôs através de IDE com base em Python. \n\n Acadêmica \n Mentora de Lógica de Programação \n Projetos com Startups em parceria com o Porto Digital. ', style: AppTextStyles.headerTextStyle(getTextSize(context, 10))),
                     Text(' Sistemas para Internet - UNICAP  | Concluído em 2022. \n\n Power BI - Avanade | Concluído em 2022.  ', style: AppTextStyles.headerTextStyle(getTextSize(context, 10))),
                   ],
                 ),
               ),
             ],
           ),
-          
         ),
       ],
-    );
-  }
+    ),
+  );
+}
+
 
   Widget buildDesktopLayout(Size size, double screenHeight) {
     return Row(
@@ -233,8 +233,8 @@ class _AboutState extends State<About> with TickerProviderStateMixin {
               child: TabBarView(
                 controller: _tabController,
                 children: [
-                  Text('Frameworks \nFlutter, React Native, Spring boot,Nodejs, Bootstrap. \n\nHard Skills \n Java, Javascript, Kotlin, Python e Dart. \n\nSoft Skills  \nCriativa, Proativa, Persuasiva, Git/Github, Responsável, Determinada,Comunicativa, HTML, CSS, \nMétodos Ágeis,Capacidade   de liderança, Flexibilidade para trabalho em equipe.', style: AppTextStyles.headerTextStyle(getTextSize(context, 12.5))),
-                  Text(' Profissional  \n Empresa: Prefeitura do Recife \n Cargo: Estagiária de Desenvolvimento em Python \n Período: 10/2022 a 01/2023 \n Atividades desenvolvidas: Criação de coreografias para os robôs através de IDE com base em Python. \n\n Acadêmica \n Mentora de Lógica de Programação \n Projetos com Startups em parceria com o Porto Digital ', style: AppTextStyles.headerTextStyle(getTextSize(context, 12.5))),
+                  Text('Frameworks \nFlutter, React Native, Spring boot, Nodejs, Bootstrap. \n\nHard Skills \n Java, Javascript, Kotlin, Python e Dart. \n\nSoft Skills  \nCriativa, Proativa, Persuasiva, Git/Github, Responsável, Determinada, Comunicativa, HTML, CSS, \nMétodos Ágeis, Capacidade de liderança, Flexibilidade para trabalho em equipe.', style: AppTextStyles.headerTextStyle(getTextSize(context, 12.5))),
+                  Text(' Profissional  \n Empresa: Prefeitura do Recife \n Cargo: Estagiária de Desenvolvimento em Python \n Período: 10/2022 a 01/2023 \n Atividades desenvolvidas: Criação de coreografias para os robôs através de IDE com base em Python. \n\n Acadêmica \n Mentora de Lógica de Programação \n Projetos com Startups em parceria com o Porto Digital. ', style: AppTextStyles.headerTextStyle(getTextSize(context, 12.5))),
                   Text(' Sistemas para Internet - UNICAP  | Concluído em 2022. \n\n Power BI - Avanade | Concluído em 2022.  ', style: AppTextStyles.headerTextStyle(getTextSize(context, 12.5))),
                 ],
               ),

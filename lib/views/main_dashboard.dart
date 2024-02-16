@@ -7,6 +7,7 @@ import 'package:portifolio/views/contact.dart';
 import 'package:portifolio/views/home.dart';
 import 'package:portifolio/views/portifolio.dart';
 
+
 class MainDashboard extends StatefulWidget {
   const MainDashboard({Key? key}) : super(key: key);
 
@@ -64,40 +65,42 @@ class _MainDashboardState extends State<MainDashboard> {
   }
 
   Widget buildMobileAppBar() {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.end,
-      children: [
-        Text.rich(
+  return Row(
+    crossAxisAlignment: CrossAxisAlignment.end,
+    children: [
+      Expanded(
+        child: Text.rich(
           _buildTextSpan(),
           style: AppTextStyles.nameTextStyle(),
         ),
-        const Spacer(),
-        PopupMenuButton(
-          icon: Icon(
-            Icons.menu_sharp,
-            size: 32,
-            color: AppColors.BColor,
-          ),
-          color: AppColors.bgColor,
-          position: PopupMenuPosition.under,
-          constraints: BoxConstraints.tightFor(width: MediaQuery.of(context).size.width * 0.9),
-          itemBuilder: (BuildContext context) => menuItems
-              .asMap()
-              .entries
-              .map(
-                (e) => PopupMenuItem(
-                  textStyle: AppTextStyles.headerTextStyle(16),
-                  onTap: () {
-                    scrollTo(index: e.key);
-                  },
-                  child: Text(e.value),
-                ),
-              )
-              .toList(),
-        )
-      ],
-    );
-  }
+      ),
+      PopupMenuButton(
+        icon: Icon(
+          Icons.menu_sharp,
+          size: 32,
+          color: AppColors.BColor,
+        ),
+        color: AppColors.bgColor,
+        position: PopupMenuPosition.under,
+        constraints: BoxConstraints.tightFor(width: MediaQuery.of(context).size.width * 0.9),
+        itemBuilder: (BuildContext context) => menuItems
+            .asMap()
+            .entries
+            .map(
+              (e) => PopupMenuItem(
+                textStyle: AppTextStyles.headerTextStyle(16),
+                onTap: () {
+                  scrollTo(index: e.key);
+                },
+                child: Text(e.value),
+              ),
+            )
+            .toList(),
+      )
+    ],
+  );
+}
+
 
   Widget buildDesktopAppBar() {
     return Row(
@@ -141,18 +144,23 @@ class _MainDashboardState extends State<MainDashboard> {
   }
 
   AnimatedContainer buildNavBarAnimatedContainer(int index, bool isSelected) {
-    return AnimatedContainer(
-      alignment: Alignment.center,
-      width: isSelected ? 105 : 95,
-      duration: const Duration(milliseconds: 200),
+  return AnimatedContainer(
+    alignment: Alignment.center,
+    width: isSelected ? 105.0 : 95.0,
+    height: 30.0, 
+    duration: const Duration(milliseconds: 200),
+    child: Center(
       child: Text(
         menuItems[index],
         style: AppTextStyles.headerMenuTextStyle(
           color: isSelected ? AppColors.TColor : AppColors.BColor,
         ),
+        textAlign: TextAlign.center,
       ),
-    );
-  }
+    ),
+  );
+}
+
 
   Future<void> scrollTo({required int index}) async {
     if (_pageController != null && _pageController.hasClients) {

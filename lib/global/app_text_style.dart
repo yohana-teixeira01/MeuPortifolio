@@ -17,7 +17,7 @@ class AppTextStyles{
       color: Color.fromRGBO(243, 251, 252, 1),
     );
   }
-   static TextStyle headerMenuTextStyle({required Color color}) {
+   static TextStyle headerMenuTextStyle({required Color color, required }) {
     return GoogleFonts.nunito(
       fontSize:  19,
       fontWeight: FontWeight.bold,

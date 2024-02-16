@@ -18,7 +18,21 @@ class MyPortifolio extends StatefulWidget {
 class _MyPortifolioState extends State<MyPortifolio> {
   final onHoverEffect = Matrix4.identity()..scale(1.0);
 
-  List<String> images = [
+  List<String> mobileImages = [
+    AppAssets.desafioAppM,
+    AppAssets.cloneYoutubeM,
+    AppAssets.calculadoraM,
+    AppAssets.emBreveM,
+  ];
+
+  List<String> tabletImages = [
+    AppAssets.desafioAppT,
+    AppAssets.cloneYoutubeT,
+    AppAssets.calculadoraT,
+    AppAssets.emBreveT,
+  ];
+
+  List<String> descktopImages = [
     AppAssets.desafioApp,
     AppAssets.cloneYoutube,
     AppAssets.calculadora,
@@ -44,17 +58,28 @@ class _MyPortifolioState extends State<MyPortifolio> {
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
+    List<String> currentImages = getImages(size);
 
     return HelperClass(
-      mobile: buildProjectColumn(crossAxisCount: 1, size: size),
-      tablet: buildProjectColumn(crossAxisCount: 2, size: size),
-      desktop: buildProjectColumn(crossAxisCount: 4, size: size),
+      mobile: buildProjectColumn(crossAxisCount: 1, size: size, images: currentImages),
+      tablet: buildProjectColumn(crossAxisCount: 2, size: size, images: currentImages),
+      desktop: buildProjectColumn(crossAxisCount: 4, size: size, images: currentImages),
       paddingWidth: size.width * 0.1,
       bgColor: AppColors.bgColor,
     );
   }
 
-  Widget buildProjectColumn({required crossAxisCount, required Size size}) {
+  List<String> getImages(Size size) {
+    if (size.width < 600) {
+      return mobileImages;
+    } else if (size.width < 1200) {
+      return tabletImages;
+    } else {
+      return descktopImages;
+    }
+  }
+
+  Widget buildProjectColumn({required crossAxisCount, required Size size, required List<String> images}) {
     return SingleChildScrollView(
       child: Column(
         mainAxisSize: MainAxisSize.min,
@@ -67,7 +92,7 @@ class _MyPortifolioState extends State<MyPortifolio> {
             textDirection: TextDirection.rtl,
           ),
           Constants.sizedBox(height: 40.0),
-          buildProjectGridView(crossAxisCount: crossAxisCount, size: size),
+          buildProjectGridView(crossAxisCount: crossAxisCount, size: size, images: images),
         ],
       ),
     );
@@ -83,7 +108,7 @@ class _MyPortifolioState extends State<MyPortifolio> {
     }
   }
 
-  Widget buildProjectGridView({required crossAxisCount, required Size size}) {
+  Widget buildProjectGridView({required crossAxisCount, required Size size, required List<String> images}) {
     return SingleChildScrollView(
       child: GridView.builder(
         itemCount: images.length,
@@ -94,13 +119,16 @@ class _MyPortifolioState extends State<MyPortifolio> {
           mainAxisExtent: size.width > 600 ? 448 : 320,
         ),
         itemBuilder: (context, index) {
-          return buildProjectItem(index, size: size);
+          return Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: buildProjectItem(index, size: size, images: images)
+            );
         },
       ),
     );
   }
 
-  Widget buildProjectItem(int index, {required Size size}) {
+  Widget buildProjectItem(int index, {required Size size, required List<String> images}) {
     var image = images[index];
     var texto = textos[index];
 

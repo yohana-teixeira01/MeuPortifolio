@@ -23,7 +23,7 @@ class _ProfileAnimationState extends State<ProfileAnimation> with TickerProvider
 
   @override
   void dispose() {
-    _controller.dispose(); // Dispose o AnimationController
+    _controller.dispose(); 
     super.dispose();
   }
 
@@ -33,8 +33,8 @@ class _ProfileAnimationState extends State<ProfileAnimation> with TickerProvider
       position: _animation,
       child: Image.asset(
         AppAssets.profile1,
-        width: 400.0,
-        height: 400.0,
+        height: 350,
+        width: 350,
       ),
     );
   }

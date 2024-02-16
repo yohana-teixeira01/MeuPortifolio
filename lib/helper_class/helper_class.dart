@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 
 class HelperClass extends StatelessWidget {
   final Widget mobile;
@@ -8,6 +6,7 @@ class HelperClass extends StatelessWidget {
   final Widget desktop;
   final double paddingWidth;
   final Color bgColor;
+
   const HelperClass({
     Key? key,
     required this.mobile,
@@ -15,48 +14,47 @@ class HelperClass extends StatelessWidget {
     required this.desktop,
     required this.paddingWidth,
     required this.bgColor,
-    }) : super(key: key);
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-      final Size size = MediaQuery.of(context).size;
-    return  LayoutBuilder(builder: (context, constraints){
-      if( constraints.maxWidth < 768){
-       return Container(
-          height: size.height,
-          width: size.width,
-          color: bgColor,
-          padding: EdgeInsets.symmetric(
-            vertical: paddingWidth, 
-            horizontal: paddingWidth,
-          ), 
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final Size size = MediaQuery.of(context).size;
 
-          child: mobile,
-        );
-        
-      }else if (constraints.maxWidth < 1007){
-        return Container(
-          height: size.height,
-          width: size.width,
-          color: bgColor,
-          padding: EdgeInsets.symmetric(
-             horizontal: paddingWidth,
-          ), 
-
-          child: tablet,
-        );
-      }else{
-        return Container(
-          height: size.height,
-          width: size.width,
-          color: bgColor,
-          padding: EdgeInsets.symmetric(
-            horizontal: paddingWidth,
-          ), 
-
-          child: desktop,
-        );
-      }
-  });
-}
+        if (constraints.maxWidth < 768) {
+          return Container(
+            height: size.height,
+            width: size.width,
+            color: bgColor,
+            padding: EdgeInsets.symmetric(
+              vertical: paddingWidth,
+              horizontal: paddingWidth,
+            ),
+            child: mobile,
+          );
+        } else if (constraints.maxWidth < 1007) {
+          return Container(
+            height: size.height,
+            width: size.width,
+            color: bgColor,
+            padding: EdgeInsets.symmetric(
+              horizontal: paddingWidth,
+            ),
+            child: tablet,
+          );
+        } else {
+          return Container(
+            height: size.height,
+            width: size.width,
+            color: bgColor,
+            padding: EdgeInsets.symmetric(
+              horizontal: paddingWidth,
+            ),
+            child: desktop,
+          );
+        }
+      },
+    );
+  }
 }

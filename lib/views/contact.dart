@@ -7,6 +7,7 @@ import 'package:portifolio/global/constants.dart';
 import 'package:portifolio/helper_class/helper_class.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+
 class Contact extends StatelessWidget {
    Contact({super.key});
 
@@ -14,7 +15,6 @@ class Contact extends StatelessWidget {
   TextEditingController emailController = TextEditingController();
   TextEditingController mensagemController = TextEditingController();
 
-  final String corpoEmail = 'Nome: %nome%\nEmail: %email%\nMensagem: %mensagem%';
   final String assunto = 'Contato do Portfólio';
   final String destinatario = 'yteixeira133@gmail.com';
 
@@ -29,17 +29,7 @@ class Contact extends StatelessWidget {
     } else {
       throw 'Não foi possível abrir a URL: $url';
     }
-  }
-
-   void enviarGmail(String nome, String email, String mensagem) async {
-   final String body = corpoEmail
-    .replaceAll('%nome%', nome)
-    .replaceAll('%email%', email)
-    .replaceAll('%mensagem%', mensagem);
-
-final String gmailLink = 'https://mail.google.com/mail/?view=cm&fs=1&to=$destinatario&subject=$assunto&body=${Uri.encodeComponent(body)}';
-    await launchURL(gmailLink);
-  }
+}
 
   void visualizarCV() async {
     await launchURL(cvURL);
@@ -54,7 +44,7 @@ final String gmailLink = 'https://mail.google.com/mail/?view=cm&fs=1&to=$destina
   }
 
   void gmail() async {
-    await launchURL('https://mail.google.com/mail/?view=cm&fs=1&to=$destinatario');
+    await launchURL('https://mail.google.com/mail/?view=cm&fs=1&to=$destinatario&subject=$assunto');
   }
 
   void linkedIn() async {
@@ -67,13 +57,13 @@ final String gmailLink = 'https://mail.google.com/mail/?view=cm&fs=1&to=$destina
     return HelperClass(
       mobile: SingleChildScrollView(
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Padding(
               padding: EdgeInsets.symmetric(vertical: 5.0, horizontal: size.width * 0.01),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text.rich(
                     _buildTextSpan(),
@@ -92,16 +82,15 @@ final String gmailLink = 'https://mail.google.com/mail/?view=cm&fs=1&to=$destina
                                 gmail();
                               },
                               child: Image.asset(
-                                AppAssets.enviar,
+                                AppAssets.gmail,
                                 height: 35,
                                 width: 35,
                               ),
                             ),
                           ),
                           Constants.sizedBox(width: 10.0),
-                          Flexible(
-                            child: Text('Yteixeira133@gmail.com', style: AppTextStyles.headerTextStyle(9)),
-                          ),
+                          Text('Yteixeira133@gmail.com', style: AppTextStyles.headerTextStyle(14)),
+                          
                         ],
                       ),
                       Constants.sizedBox(height: 10.0),
@@ -120,37 +109,41 @@ final String gmailLink = 'https://mail.google.com/mail/?view=cm&fs=1&to=$destina
                             ),
                           ),
                           Constants.sizedBox(width: 10.0),
-                          Flexible(
-                            child: Text('Ligações e WhatsApp', style: AppTextStyles.headerTextStyle(9)),
-                          ),
+                          Text('Ligações e WhatsApp', style: AppTextStyles.headerTextStyle(14)),
+                          
                         ],
                       ),
                     ],
                   ),
-                  Constants.sizedBox(height: 20.0),
+                  Constants.sizedBox(height: 10.0),
                   Row(
                     children: [
-                      GestureDetector(
-                        onTap: () {
-                          linkedIn();
-                        },
-                        child: Image.asset(
-                          AppAssets.linkedin,
-                          height: 35,
-                          width: 35,
+                      Flexible(
+                        child: GestureDetector(
+                          onTap: () {
+                            linkedIn();
+                          },
+                          child: Image.asset(
+                            AppAssets.linkedin,
+                            height: 35,
+                            width: 35,
+                          ),
                         ),
                       ),
-                      Constants.sizedBox(width: 20.0),
-                      GestureDetector(
-                        onTap: () {
-                          github();
-                        },
-                        child: Image.asset(
-                          AppAssets.github,
-                          height: 35,
-                          width: 35,
+                      Constants.sizedBox(width: 10.0),
+                      Flexible(
+                        child: GestureDetector(
+                          onTap: () {
+                            github();
+                          },
+                          child: Image.asset(
+                            AppAssets.github,
+                            height: 35,
+                            width: 35,
+                          ),
                         ),
                       ),
+                      Constants.sizedBox(width: 10.0),
                     ],
                   ),
                   Constants.sizedBox(height: 20.0),
@@ -174,69 +167,17 @@ final String gmailLink = 'https://mail.google.com/mail/?view=cm&fs=1&to=$destina
                 ],
               ),
             ),
-            Padding(
-              padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: size.width * 0.03),
-              child: Material(
-                borderRadius: BorderRadius.circular(10),
-                elevation: 8,
-                color: Colors.transparent,
-                child: TextField(
-                  controller: nomeController,
-                  decoration: buildInputDecoration(hintText: 'Nome'),
+            Constants.sizedBox(height: 145.0),
+             Align(
+            alignment: Alignment.centerRight,
+             child: Text(
+                  '₢ Todos os direitos reservados.',
+                  style: AppTextStyles.headerTextStyle(18),
                 ),
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.symmetric(vertical: 10, horizontal: size.width * 0.03),
-              child: Material(
-                borderRadius: BorderRadius.circular(10),
-                elevation: 8,
-                color: Colors.transparent,
-                child: TextField(
-                  controller: emailController,
-                  decoration: buildInputDecoration(hintText: 'Email'),
-                ),
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.symmetric(vertical: 10, horizontal: size.width * 0.03),
-              child: Material(
-                borderRadius: BorderRadius.circular(10),
-                elevation: 8,
-                color: Colors.transparent,
-                child: TextField(
-                  controller: mensagemController,
-                  maxLines: 10,
-                  decoration: buildInputDecoration(hintText: 'Mensagem de texto'),
-                ),
-              ),
-            ),
-            Constants.sizedBox(height: 10.0),
-            AnimatedButton(
-              height: 50,
-              width: 90,
-              text: 'Enviar',
-              isReverse: false,
-              selectedTextColor: AppColors.BColor,
-              transitionType: TransitionType.LEFT_TO_RIGHT,
-              textStyle: AppTextStyles.monteserratStyle(15),
-              selectedBackgroundColor: Color(0xFF65C8D6),
-              backgroundColor: AppColors.TColor,
-              borderColor: Color(0xFF65C8D6),
-              borderRadius: 10,
-              borderWidth: 1,
-              onPress: () {
-                enviarGmail(
-                  nomeController.text,
-                  emailController.text,
-                  mensagemController.text,
-                );
-              },
-            ),
+           ),   
           ],
         ),
       ),
-
       tablet: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -245,11 +186,11 @@ final String gmailLink = 'https://mail.google.com/mail/?view=cm&fs=1&to=$destina
               padding: EdgeInsets.symmetric(vertical: 30, horizontal: size.width * 0.1),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text.rich(
                     _buildTextSpan(),
-                    style: AppTextStyles.monteserratStyle(60),
+                    style: AppTextStyles.monteserratStyle(48),
                     textAlign: TextAlign.start,
                     textDirection: TextDirection.rtl,
                   ),
@@ -263,13 +204,13 @@ final String gmailLink = 'https://mail.google.com/mail/?view=cm&fs=1&to=$destina
                               gmail();
                             },
                             child: Image.asset(
-                              AppAssets.enviar,
+                              AppAssets.gmail,
                               height: 40,
                               width: 40,
                             ),
                           ),
-                          Constants.sizedBox(width: 30.0),
-                          Text('Yteixeira133@gmail.com', style: AppTextStyles.headerTextStyle(20)),
+                          Constants.sizedBox(width: 10.0),
+                          Text('Yteixeira133@gmail.com', style: AppTextStyles.headerTextStyle(15)),
                         ],
                       ),
                     ],
@@ -289,8 +230,8 @@ final String gmailLink = 'https://mail.google.com/mail/?view=cm&fs=1&to=$destina
                               width: 40,
                             ),
                           ),
-                          Constants.sizedBox(width: 30.0),
-                          Text('Ligações e WhatsApp', style: AppTextStyles.headerTextStyle(20)),
+                          Constants.sizedBox(width: 10.0),
+                          Text('Ligações e WhatsApp', style: AppTextStyles.headerTextStyle(15)),
                         ],
                       ),
                     ],
@@ -342,221 +283,106 @@ final String gmailLink = 'https://mail.google.com/mail/?view=cm&fs=1&to=$destina
                 ],
               ),
             ),
-            Padding(
-              padding: EdgeInsets.symmetric(vertical: 15, horizontal: size.width * 0.03),
-              child: Material(
-                borderRadius: BorderRadius.circular(10),
-                elevation: 8,
-                color: Colors.transparent,
-                child: TextField(
-                  controller: nomeController,
-                  decoration: buildInputDecoration(hintText: 'Nome'),
+            Constants.sizedBox(height: 145.0),
+             Align(
+            alignment: Alignment.centerRight,
+             child: Text(
+                  '₢ Todos os direitos reservados.',
+                  style: AppTextStyles.headerTextStyle(18),
                 ),
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.symmetric(vertical: 20, horizontal: size.width * 0.03),
-              child: Material(
-                borderRadius: BorderRadius.circular(10),
-                elevation: 8,
-                color: Colors.transparent,
-                child: TextField(
-                  controller: emailController,
-                  decoration: buildInputDecoration(hintText: 'Email'),
-                ),
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.symmetric(vertical: 20, horizontal: size.width * 0.03),
-              child: Material(
-                borderRadius: BorderRadius.circular(10),
-                elevation: 8,
-                color: Colors.transparent,
-                child: TextField(
-                  controller: mensagemController,
-                  maxLines: 10,
-                  decoration: buildInputDecoration(hintText: 'Mensagem de texto'),
-                ),
-              ),
-            ),
-            AnimatedButton(
-              height: 50,
-              width: 180,
-              text: 'Enviar',
-              isReverse: false,
-              selectedTextColor: AppColors.BColor,
-              transitionType: TransitionType.LEFT_TO_RIGHT,
-              textStyle: AppTextStyles.monteserratStyle(15),
-              selectedBackgroundColor: Color(0xFF65C8D6),
-              backgroundColor: AppColors.TColor,
-              borderColor: Color(0xFF65C8D6),
-              borderRadius: 10,
-              borderWidth: 1,
-              onPress: () {
-                enviarGmail(
-                  nomeController.text,
-                  emailController.text,
-                  mensagemController.text,
-                );
-              },
-            ),
+           ),   
           ],
         ),
       ),
       desktop: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Padding(
             padding: EdgeInsets.symmetric(vertical: 30, horizontal: size.width * 0.001),
-            child: Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Constants.sizedBox(height: 30.0),
-                  Text.rich(
-                    _buildTextSpan(),
-                    style: AppTextStyles.monteserratStyle(66),
-                    textAlign: TextAlign.start,
-                    textDirection: TextDirection.rtl,
-                  ),
-                  Constants.sizedBox(height: 20.0),
-                  Column(
-                    children:[
-                      Row(
-                        children: [
-                          GestureDetector(
-                            onTap: () {
-                              gmail();
-                            },
-                            child: Image.asset(
-                              AppAssets.enviar,
-                              height: 50,
-                              width: 50,
-                            ),
-                          ),
-                          Constants.sizedBox(width: 30.0),
-                          Text('Yteixeira133@gmail.com', style: AppTextStyles.headerTextStyle(24)),
-                        ],
-                      ),
-                    ]
-                  ),
-                  Constants.sizedBox(height: 30.0),
-                  Column(
-                    children: [
-                      Row(
-                        children: [
-                          GestureDetector(
-                            onTap: (){
-                              whatsApp();
-                            },
-                            child: Image.asset(
-                              AppAssets.telefone,
-                              height: 50,
-                              width: 50,
-                            ),
-                          ),
-                          Constants.sizedBox(width: 30.0),
-                          Text('Ligações e WhatsApp', style: AppTextStyles.headerTextStyle(24)),
-                        ],
-                      ),
-                    ],
-                  ),
-                  Constants.sizedBox(height: 40.0),
-                  Row(
-                    children: [
-                      GestureDetector(
-                        onTap: (){
-                          linkedIn();
-                        },
-                        child: Image.asset(
-                          AppAssets.linkedin,
-                          height: 50,
-                          width: 50,
-                        ),
-                      ),
-                      Constants.sizedBox(width: 30.0),
-                      GestureDetector(
-                        onTap: (){
-                          github();
-                        },
-                        child: Image.asset(
-                          AppAssets.github,
-                          height: 50,
-                          width: 50,
-                        ),
-                      ),
-                    ],
-                  ),
-                  Constants.sizedBox(height: 30.0),
-                  AnimatedButton(
-                    height: 70,
-                    width: 250,
-                    text: 'Visualizar CV',
-                    isReverse: false,
-                    selectedTextColor: AppColors.BColor,
-                    transitionType: TransitionType.LEFT_TO_RIGHT,
-                    textStyle: AppTextStyles.monteserratStyle(15),
-                    selectedBackgroundColor: Color(0xFF65C8D6),
-                    backgroundColor: AppColors.TColor,
-                    borderColor: Color(0xFF65C8D6),
-                    borderRadius: 10,
-                    borderWidth: 1,
-                    onPress: () {
-                      visualizarCV();
-                    },
-                  ),
-                ],
-              ),
-            ),
-          ),
-          Expanded(
-            flex: 2,
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                const SizedBox(height: 150),
-                Padding(
-                  padding: EdgeInsets.symmetric(vertical: 15, horizontal: size.width * 0.01),
-                  child: Material(
-                    borderRadius: BorderRadius.circular(10),
-                    elevation: 8,
-                    color: Colors.transparent,
-                    child: TextField(
-                      controller: nomeController,
-                      decoration: buildInputDecoration(hintText: 'Nome'),
-                    ),
-                  ),
+                Constants.sizedBox(height: 30.0),
+                Text.rich(
+                  _buildTextSpan(),
+                  style: AppTextStyles.monteserratStyle(66),
+                  textAlign: TextAlign.start,
+                  textDirection: TextDirection.rtl,
                 ),
-                Padding(
-                  padding: EdgeInsets.symmetric(vertical: 20, horizontal: size.width * 0.01),
-                  child: Material(
-                    borderRadius: BorderRadius.circular(10),
-                    elevation: 8,
-                    color: Colors.transparent,
-                    child: TextField(
-                      controller: emailController,
-                      decoration: buildInputDecoration(hintText: 'Email'),
+                Constants.sizedBox(height: 20.0),
+                Column(
+                  children:[
+                    Row(
+                      children: [
+                        GestureDetector(
+                          onTap: () {
+                            gmail();
+                          },
+                          child: Image.asset(
+                            AppAssets.gmail,
+                            height: 50,
+                            width: 50,
+                          ),
+                        ),
+                        Constants.sizedBox(width: 30.0),
+                        Text('Yteixeira133@gmail.com', style: AppTextStyles.headerTextStyle(24)),
+                      ],
                     ),
-                  ),
+                  ]
                 ),
-                Padding(
-                  padding: EdgeInsets.symmetric(vertical: 20, horizontal: size.width * 0.01),
-                  child: Material(
-                    borderRadius: BorderRadius.circular(10),
-                    elevation: 8,
-                    color: Colors.transparent,
-                    child: TextField(
-                      controller: mensagemController,
-                      maxLines: 10,
-                      decoration: buildInputDecoration(hintText: 'Mensagem de texto'),
+                Constants.sizedBox(height: 30.0),
+                Column(
+                  children: [
+                    Row(
+                      children: [
+                        GestureDetector(
+                          onTap: (){
+                            whatsApp();
+                          },
+                          child: Image.asset(
+                            AppAssets.telefone,
+                            height: 50,
+                            width: 50,
+                          ),
+                        ),
+                        Constants.sizedBox(width: 30.0),
+                        Text('Ligações e WhatsApp', style: AppTextStyles.headerTextStyle(24)),
+                      ],
                     ),
-                  ),
+                  ],
                 ),
+                Constants.sizedBox(height: 40.0),
+                Row(
+                  children: [
+                    GestureDetector(
+                      onTap: (){
+                        linkedIn();
+                      },
+                      child: Image.asset(
+                        AppAssets.linkedin,
+                        height: 50,
+                        width: 50,
+                      ),
+                    ),
+                    Constants.sizedBox(width: 30.0),
+                    GestureDetector(
+                      onTap: (){
+                        github();
+                      },
+                      child: Image.asset(
+                        AppAssets.github,
+                        height: 50,
+                        width: 50,
+                      ),
+                    ),
+                  ],
+                ),
+                Constants.sizedBox(height: 30.0),
                 AnimatedButton(
-                  height: 50,
-                  width: 180,
-                  text: 'Enviar',
+                  height: 70,
+                  width: 250,
+                  text: 'Visualizar CV',
                   isReverse: false,
                   selectedTextColor: AppColors.BColor,
                   transitionType: TransitionType.LEFT_TO_RIGHT,
@@ -567,22 +393,29 @@ final String gmailLink = 'https://mail.google.com/mail/?view=cm&fs=1&to=$destina
                   borderRadius: 10,
                   borderWidth: 1,
                   onPress: () {
-                    enviarGmail(
-                      nomeController.text,
-                      emailController.text,
-                      mensagemController.text,
-                    );
+                    visualizarCV();
                   },
                 ),
+                
               ],
             ),
           ),
+           Align(
+            alignment: Alignment.bottomRight,
+            heightFactor: 22.0,
+             child: Text(
+                  '₢ Todos os direitos reservados.',
+                  style: AppTextStyles.headerTextStyle(18),
+                ),
+           ),   
         ],
       ),
       paddingWidth: size.width * 0.2,
       bgColor: AppColors.sColor,
     );
+    
   }
+  
 
   Image iconContact({required String asset}) {
     return Image.asset(
@@ -637,4 +470,5 @@ final String gmailLink = 'https://mail.google.com/mail/?view=cm&fs=1&to=$destina
     );
   }
 }
+
 

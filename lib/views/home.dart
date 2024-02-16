@@ -13,14 +13,12 @@ class Home extends StatelessWidget {
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
 
-    return SingleChildScrollView(
-      child: HelperClass(
-        mobile: buildMobileLayout(size),
-        tablet: buildTabletLayout(size),
-        desktop: buildDesktopLayout(size),
-        paddingWidth: size.width * 0.1,
-        bgColor: AppColors.bgColor,
-      ),
+    return HelperClass(
+      mobile: buildMobileLayout(size),
+      tablet: buildTabletLayout(size),
+      desktop: buildDesktopLayout(size),
+      paddingWidth: size.width * 0.1,
+      bgColor: AppColors.bgColor,
     );
   }
 
@@ -69,7 +67,7 @@ class Home extends StatelessWidget {
           style: AppTextStyles.headerTextStyle(19.0),
         ),
         Constants.sizedBox(height: 5.0),
-        Row(
+        Wrap(
           children: [
             Text(
               'Sou Desenvolvedora ',
@@ -93,8 +91,8 @@ class Home extends StatelessWidget {
         SizedBox(
           width: size.width * 0.5,
           child: Text(
-            'Atualmente estou em busca da minha primeira oportunidade na área e através desse site,'
-            ' deixo um pouco dos meus conhecimentos registrado para vocês.',
+            'Atualmente estou em busca da minha primeira oportunidade na área. E através desse site,'
+            ' registro um pouco dos meus conhecimentos para vocês.',
             style: AppTextStyles.normalStyle(fontSize: 16.0),
           ),
         ),
@@ -137,7 +135,7 @@ class Home extends StatelessWidget {
           width: size.width * 0.5,
           child: Text(
             'Atualmente estou em busca da minha primeira oportunidade na área e através desse site,'
-            ' deixo um pouco dos meus conhecimentos registrado para vocês.',
+            ' registro um pouco dos meus conhecimentos para vocês.',
             style: AppTextStyles.normalStyle(fontSize: 17.0),
           ),
         ),
@@ -181,7 +179,7 @@ class Home extends StatelessWidget {
           width: size.width * 0.5,
           child: Text(
             'Atualmente estou em busca da minha primeira oportunidade na área e através desse site,'
-            ' deixo um pouco dos meus conhecimentos registrado para vocês.',
+            ' registro um pouco dos meus conhecimentos para vocês.',
             style: AppTextStyles.normalStyle(fontSize: 17.0),
           ),
         ),
